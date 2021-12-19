@@ -3,6 +3,11 @@ import org.example.internal.Terminal;
 
 import java.util.Scanner;
 
+/**
+ * Allows a user to check their WPM.
+ *
+ * @author Macintosh_Fan
+ */
 public class TypingCommand implements Command {
     /**
      * Called when the command is called.

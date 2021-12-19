@@ -3,6 +3,8 @@ import org.example.internal.Terminal;
 
 /**
  * Prints a number to the console.
+ *
+ * @author Macintosh_Fan
  */
 public class PrintNumberCommand implements Command {
     /**
