@@ -15,7 +15,8 @@ public final class Main {
     public static void main(String[] args) {
         Command[] commands = {
                 new PrintNumberCommand(),
-                new TypingCommand()
+                new TypingCommand(),
+                new WindowCommand()
         };
         Terminal terminal = new Terminal(commands);
         terminal.start(false);
