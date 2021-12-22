@@ -16,7 +16,8 @@ public final class Main {
         Command[] commands = {
                 new PrintNumberCommand(),
                 new TypingCommand(),
-                new WindowCommand()
+                new WindowCommand(),
+                new ChessCommand()
         };
         Terminal terminal = new Terminal(commands);
         terminal.start(false);
