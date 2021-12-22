@@ -8,6 +8,12 @@ import org.example.internal.Terminal;
  */
 public final class Main {
     /**
+     * Don't let anyone instantiate this class.
+     */
+    private Main() {
+    }
+
+    /**
      * The main method.
      *
      * @param args does nothing
