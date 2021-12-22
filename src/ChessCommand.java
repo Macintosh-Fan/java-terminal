@@ -25,6 +25,16 @@ public class ChessCommand implements Command {
     private final char[][] CHESS_BOARD_ARRAY = new char[8][8];
 
     /**
+     * Is the game over?
+     */
+    boolean gameOver;
+
+    /**
+     * Did white win?
+     */
+    boolean whiteWin;
+
+    /**
      * Called when the command is called.
      *
      * @param terminal the main terminal
@@ -35,6 +45,7 @@ public class ChessCommand implements Command {
         this.terminal = terminal;
         Scanner scanner = new Scanner(terminal.stdInStream);
         updateChessBoard();
+        gameOver = false;
         terminal.stdOutStream.println("""
                 Chess commands (this program assumes that you know how to play Chess)
                                 
@@ -43,7 +54,7 @@ public class ChessCommand implements Command {
                 """);
         String input;
         String[] inputArgs;
-        while (true) {
+        while (!gameOver) {
             terminal.stdOutStream.println(chessBoard);
             terminal.stdOutStream.print("> ");
             input = scanner.nextLine();
@@ -55,12 +66,22 @@ public class ChessCommand implements Command {
                     terminal.stdErrStream.println("Not enough arguments! Try again...\n");
                 }
             } else if (input.startsWith("exit")) {
-                terminal.stdOutStream.println("Goodbye.\nExiting chess...");
+                terminal.stdOutStream.println("Goodbye.");
                 break;
             } else {
                 terminal.stdErrStream.println("Not a valid chess command! Try again...\n");
             }
         }
+        if (gameOver) {
+            terminal.stdOutStream.println(chessBoard);
+            terminal.stdOutStream.print("Game over! ");
+            if (whiteWin) {
+                terminal.stdOutStream.println("White won!");
+            } else {
+                terminal.stdOutStream.println("Black won!");
+            }
+        }
+        terminal.stdOutStream.println("Exiting chess...");
     }
 
     /**
@@ -192,8 +213,16 @@ public class ChessCommand implements Command {
      * @param newPlaceLetter the new place letter (eg: 'e' in e4)
      */
     private void updateChessBoard(int oldPlaceNumber, int oldPlaceLetter, int newPlaceNumber, int newPlaceLetter) {
-        CHESS_BOARD_ARRAY[newPlaceNumber][newPlaceLetter] = CHESS_BOARD_ARRAY[oldPlaceNumber][oldPlaceLetter];
+        char oldPlace = CHESS_BOARD_ARRAY[oldPlaceNumber][oldPlaceLetter];
+        char newPlace = CHESS_BOARD_ARRAY[newPlaceNumber][newPlaceLetter];
+
+        CHESS_BOARD_ARRAY[newPlaceNumber][newPlaceLetter] = oldPlace;
         CHESS_BOARD_ARRAY[oldPlaceNumber][oldPlaceLetter] = ' ';
+
+        if (newPlace == '♔' || newPlace == '♚') {
+            gameOver = true;
+            whiteWin = newPlace == '♚';
+        }
         chessBoard = String.format("""
                 ╔═╤═╤═╤═╤═╤═╤═╤═╗╮
                 ║%c│%c│%c│%c│%c│%c│%c│%c║8
