@@ -216,6 +216,11 @@ public class ChessCommand implements Command {
         char oldPlace = CHESS_BOARD_ARRAY[oldPlaceNumber][oldPlaceLetter];
         char newPlace = CHESS_BOARD_ARRAY[newPlaceNumber][newPlaceLetter];
 
+        if (oldPlace == ' ') {
+            terminal.stdErrStream.println("Can't move from a blank space!");
+            return;
+        }
+
         CHESS_BOARD_ARRAY[newPlaceNumber][newPlaceLetter] = oldPlace;
         CHESS_BOARD_ARRAY[oldPlaceNumber][oldPlaceLetter] = ' ';
 
