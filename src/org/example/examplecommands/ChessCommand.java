@@ -1,5 +1,8 @@
+package org.example.examplecommands;
+
 import org.example.internal.Command;
 import org.example.internal.Terminal;
+import org.example.util.Utility;
 
 import java.util.Scanner;
 

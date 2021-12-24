@@ -1,12 +1,16 @@
+package org.example.examplecommands;
+
 import org.example.internal.Command;
 import org.example.internal.Terminal;
 
+import java.util.Scanner;
+
 /**
- * Prints a number to the console.
+ * Allows a user to check their WPM.
  *
  * @author Macintosh_Fan
  */
-public class PrintNumberCommand implements Command {
+public class TypingCommand implements Command {
     /**
      * Called when the command is called.
      *
@@ -15,15 +19,23 @@ public class PrintNumberCommand implements Command {
      */
     @Override
     public void onCommand(Terminal terminal, String[] args) {
-        if (args == null) {
-            terminal.stdErrStream.println("Missing parameter 'x'!");
-        } else {
+        Scanner scanner = new Scanner(terminal.stdInStream);
+        terminal.stdOutStream.println("Press enter when done.\nPreparing typing...");
+        for (int i = 3; i != 0; i--) {
+            terminal.stdOutStream.println(i);
             try {
-                terminal.stdOutStream.println(Long.parseLong(args[0]));
-            } catch (NumberFormatException nfe) {
-                terminal.stdErrStream.println("Invalid number (too small/big or contained non-numeric characters?)!");
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                terminal.stdErrStream.println("Countdown interrupted!");
+                return;
             }
         }
+        terminal.stdOutStream.print("GO!\n");
+        long start = System.currentTimeMillis();
+        String text = scanner.nextLine();
+        long end = System.currentTimeMillis();
+        double timeInSeconds = ((double) (end - start) / 1000);
+        terminal.stdOutStream.printf("WPM: %.1f\n", (text.length() / 5 / (timeInSeconds / 60)));
     }
 
     /**
@@ -40,7 +52,7 @@ public class PrintNumberCommand implements Command {
      */
     @Override
     public String getName() {
-        return "printNumber";
+        return "typing";
     }
 
     /**
@@ -57,7 +69,7 @@ public class PrintNumberCommand implements Command {
      */
     @Override
     public String getUsage() {
-        return "x";
+        return null;
     }
 
     /**
@@ -74,6 +86,6 @@ public class PrintNumberCommand implements Command {
      */
     @Override
     public String getDescription() {
-        return "prints parameter 'x' passed to the standard output.";
+        return "checks your WPM for something that you type.";
     }
 }

@@ -1,3 +1,5 @@
+package org.example.examplecommands;
+
 import org.example.internal.Command;
 import org.example.internal.Terminal;
 

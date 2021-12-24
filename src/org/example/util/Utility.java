@@ -1,3 +1,5 @@
+package org.example.util;
+
 /**
  * A utility class with utility methods.
  *

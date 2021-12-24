@@ -1,3 +1,7 @@
+import org.example.examplecommands.ChessCommand;
+import org.example.examplecommands.PrintNumberCommand;
+import org.example.examplecommands.TypingCommand;
+import org.example.examplecommands.WindowCommand;
 import org.example.internal.Command;
 import org.example.internal.Terminal;
 
