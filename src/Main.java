@@ -1,4 +1,4 @@
-import org.example.examplecommands.ChessCommand;
+import org.example.examplecommands.chess.ChessCommand;
 import org.example.examplecommands.PrintNumberCommand;
 import org.example.examplecommands.TypingCommand;
 import org.example.examplecommands.WindowCommand;
